@@ -1,6 +1,6 @@
 import LineChart from "../components/LineChart";
 import { useState } from "react";
-import { UserData } from "./Data";
+// import { UserData } from "./Data";
 
 
 function DrawLine({ data_in }) {
