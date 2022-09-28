@@ -71,11 +71,11 @@ io.on("connection", function (socket) {
   });
 
   socket.on("date", async function (msg) {
-    console.log("收到了！" + msg.date);
+    console.log("收到了！" + msg);
     // console.log(msg);
-    let rows = await search(2, ` WHERE datetime like '${msg.date} %'`);
-    // console.log(rows);
-    socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
+    // let rows = await search(2, ` WHERE datetime like '${msg.date} %'`);
+    // // console.log(rows);
+    // socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
   });
 
   // 從 mqtt broker 收到訊息時
