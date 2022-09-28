@@ -23,8 +23,8 @@ function DrawLine({ data_in }) {
     {
         labels: data_in.map((data) => {
             let date_fin = new Date(data.datetime);
-            let finalDate = date_fin.toTimeString().split(' ')[0];
-            return finalDate;
+            let finalDate = date_fin.toISOString().slice(0, 19).replace('T', ' ');
+            return finalDate.substring(11);
         }),  //底下的標籤
         datasets: [
             {
