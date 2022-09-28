@@ -21,18 +21,20 @@ async function search(i, sql_def) {
     switch (i) {
         case 1: { //取得數量
             const [rows, fields] = await connection.execute(sql);
+            connection.end();
             console.log(rows.length);
             return rows.length;
             // break;
         }
         case 2: {
-            sql = sql + sql_def;
-            const [rows, fields] = await connection.execute(sql);
+            const sql2 = sql + sql_def;
+            console.log(sql2);
+            const [rows, fields] = await connection.execute(sql2);
+            connection.end();
             return rows;
         }
         default: { break; }
     }
-    connection.end();
 }
 
 function insert(uid, temperature, humidity, datetime) {
