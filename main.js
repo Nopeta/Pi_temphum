@@ -49,6 +49,18 @@ client.on('connect', function () {
 });
 client.subscribe('msg/info');
 
+client.on("message", async function (topic, msg) {
+  const msg_in = JSON.parse(msg);
+  const { temp, hum, datetime } = msg_in;
+  const msg_out = { temp, hum, datetime };
+  // // 以 chat 發送訊息給監聽的 client
+  console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
+  let uid = await search(1, '');
+  uid += 1;
+  insert(uid, temp, hum, datetime);
+
+});
+
 
 // client 連入時的基本設定
 io.on("connection", function (socket) {
@@ -74,10 +86,10 @@ io.on("connection", function (socket) {
     // // 以 chat 發送訊息給監聽的 client
 
     socket.emit("information", msg_out);
-    console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
-    let uid = await search(1, '');
-    uid += 1;
-    insert(uid, temp, hum, datetime);
+    // console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
+    // let uid = await search(1, '');
+    // uid += 1;
+    // insert(uid, temp, hum, datetime);
 
   });
 });
