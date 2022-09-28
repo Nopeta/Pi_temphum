@@ -14,7 +14,7 @@ function DrawLine({ data_in }) {
             },
             title: {
                 display: true,
-                text: '溫濕度監測',
+                text: '歷史溫濕度查看',
             },
         },
     };
