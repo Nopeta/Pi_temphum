@@ -49,6 +49,7 @@ function insert(uid, temperature, humidity, datetime) {
     });
     con.end();
 
+
 }
 
 // insert(3, 26, 69, "2022-09-27 23:23:23")
