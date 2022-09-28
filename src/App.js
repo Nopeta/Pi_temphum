@@ -6,6 +6,7 @@ import DrawLine from "./components/drawline";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from 'react-flatpickr';
 
+
 const App = () => {
   // const chatBoxref = useRef(null);
   // const [player, setPlayer] = useState(flvUrl);
@@ -21,7 +22,7 @@ const App = () => {
     setWs(
       // webSocket(`http://localhost:8282/`, {
 
-      webSocket(`http://${window.location.hostname}:8282/`, {
+      webSocket(`https://safe-cove-57354.herokuapp.com/`, {
         transports: ["websocket"],
       })
     );
