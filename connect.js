@@ -26,6 +26,7 @@ async function search(i, sql_def) {
             // break;
         }
         case 2: {
+            sql = sql + sql_def;
             const [rows, fields] = await connection.execute(sql);
             return rows;
         }
