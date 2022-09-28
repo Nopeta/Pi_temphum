@@ -72,6 +72,7 @@ io.on("connection", function (socket) {
 
   socket.on("date", async function (msg) {
     console.log("收到了！" + msg);
+    console.log(msg);
     // console.log(msg);
     // let rows = await search(2, ` WHERE datetime like '${msg.date} %'`);
     // // console.log(rows);
