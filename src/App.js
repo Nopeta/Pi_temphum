@@ -14,7 +14,7 @@ const App = () => {
   const [ws, setWs] = useState(null);
   const [height, setHeight] = useState(window.innerHeight);
   const [date_send, setDate_send] = useState("");
-  const [basedate, setBasedate] = useState([]);
+  const [basedata, setBasedata] = useState([]);
   const [information, setInformation] = useState({ temp: "", hum: "", datetime: "" });
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const App = () => {
   const initWebSocket_data = () => {
     ws.on("basedata", (data) => {
       // console.log(data);
-      setBasedate(data);
+      setBasedata(data);
     });
   };
 
@@ -61,7 +61,7 @@ const App = () => {
   // console.log("YOYOYO" + information);
 
   const sendMessage = () => {
-    if (date_send !== "" && information !== "") {
+    if (date_send !== "") {
       ws.emit("date", { date_send });
     }
   };
@@ -72,7 +72,7 @@ const App = () => {
     dateFormat: "Y-d-m",
     defaultDate: "2022-10-01"
   };
-
+  console.log("sss" + date_send)
   return (
     <>
       <div className="drawline">
@@ -122,7 +122,7 @@ const App = () => {
           >
             Send
           </button>
-          <DrawLine data_in={basedate} />
+          <DrawLine data_in={basedata} />
         </div>
 
 
