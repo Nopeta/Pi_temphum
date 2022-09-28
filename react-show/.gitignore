@@ -2,17 +2,15 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-/react-chat/src/api_test.js
-/react-chat/src/App_test.js
-/react-chat/src/components.js
+/src/api_test.js
+/src/components/Data.js
+/src/components/calendar.js
 
 # testing
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
@@ -24,5 +22,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-node_modules
