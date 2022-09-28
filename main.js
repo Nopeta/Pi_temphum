@@ -9,7 +9,7 @@ const { search, insert } = require("./connect");
 // const { search } = require("./connect");
 
 // https 的一些基本設定//
-var serverPort = 8282;
+var serverPort = process.env.PORT;
 var server = http.createServer(app);
 
 //set the template engine ejs
