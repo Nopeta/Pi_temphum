@@ -64,7 +64,7 @@ client.on("message", async function (topic, msg) {
 
 
 // client 連入時的基本設定
-io.on("connection", function (socket) {
+io.on("connection", async function (socket) {
 
   // client 斷線時的動作
   socket.on("disconnect", function () {
@@ -96,5 +96,9 @@ io.on("connection", function (socket) {
 
   });
 
+  console.log("來拿歷史資料囉！-first");
+  let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+  // console.log(rows[0]);
+  socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
 
 });
