@@ -92,7 +92,7 @@ io.on("connection", function (socket) {
     console.log("來拿歷史資料囉！");
     let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
     // console.log(rows[0]);
-    socket.emit("history_last_1", rows); //回傳前端資料庫搜尋資料
+    socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
 
   });
 
