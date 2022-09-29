@@ -10,6 +10,7 @@ const { search, insert } = require("./connect");
 
 // https 的一些基本設定//
 var serverPort = process.env.PORT;
+// var serverPort = 8282;
 var server = http.createServer(app);
 
 //set the template engine ejs
@@ -78,12 +79,7 @@ io.on("connection", function (socket) {
     socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
   });
 
-  socket.on("hits_date", async function (msg) {
-    console.log("來拿歷史資料囉！");
-    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
-    // // console.log(rows);
-    socket.emit("history_last_1", rows); //回傳前端資料庫搜尋資料
-  });
+
 
   // 從 mqtt broker 收到訊息時
   client.on("message", async function (topic, msg) {
@@ -92,6 +88,11 @@ io.on("connection", function (socket) {
     const msg_out = { temp, hum, datetime };
     // // 以 chat 發送訊息給監聽的 client
     socket.emit("information", msg_out);
+
+    console.log("來拿歷史資料囉！");
+    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+    // console.log(rows[0]);
+    socket.emit("history_last_1", rows); //回傳前端資料庫搜尋資料
 
   });
 
