@@ -22,7 +22,7 @@ async function search(i, sql_def) {
         case 1: { //取得數量
             const [rows, fields] = await connection.execute(sql);
             connection.end();
-            console.log(rows.length);
+            // console.log(rows.length);
             return rows.length;
             // break;
         }
@@ -31,7 +31,7 @@ async function search(i, sql_def) {
             // console.log(sql2);
             const [rows, fields] = await connection.execute(sql2);
             connection.end();
-            console.log(rows.length);
+            // console.log(rows.length);
             return rows;
         }
         default: { break; }
