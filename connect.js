@@ -28,9 +28,10 @@ async function search(i, sql_def) {
         }
         case 2: {
             const sql2 = sql + sql_def;
-            console.log(sql2);
+            // console.log(sql2);
             const [rows, fields] = await connection.execute(sql2);
             connection.end();
+            console.log(rows.length);
             return rows;
         }
         default: { break; }
