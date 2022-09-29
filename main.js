@@ -72,11 +72,17 @@ io.on("connection", function (socket) {
 
   socket.on("date", async function (msg) {
     console.log("收到了！" + msg.date_send);
-    console.log(msg);
     // console.log(msg);
     let rows = await search(2, ` WHERE datetime like '${msg.date_send} %'`);
     // // console.log(rows);
     socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
+  });
+
+  socket.on("hits_date", async function (msg) {
+    console.log("來拿歷史資料囉！");
+    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+    // // console.log(rows);
+    socket.emit("history_last_1", rows); //回傳前端資料庫搜尋資料
   });
 
   // 從 mqtt broker 收到訊息時
@@ -85,12 +91,9 @@ io.on("connection", function (socket) {
     const { temp, hum, datetime } = msg_in;
     const msg_out = { temp, hum, datetime };
     // // 以 chat 發送訊息給監聽的 client
-
     socket.emit("information", msg_out);
-    // console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
-    // let uid = await search(1, '');
-    // uid += 1;
-    // insert(uid, temp, hum, datetime);
 
   });
+
+
 });
