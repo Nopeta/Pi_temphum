@@ -5,21 +5,14 @@ var mqtt = require("mqtt");
 const config = require("./config.json")
 const app = express();
 const { search, insert } = require("./connect");
-const { useEffect } = require("react");
+var serverPort = process.env.PORT || 8282;
 var uid = 0;
 // const { search } = require("./connect");
 
-// https 的一些基本設定//
-var serverPort = process.env.PORT;
-// var serverPort = 8282;
-var server = http.createServer(app);
-
-//set the template engine ejs
-
 app.use(cors());
-
 //middlewares
 app.use(express.static("public"));
+// app.use('/', express.static(path.join(__dirname, 'dist')));
 
 //routes
 app.get("/", (req, res) => {
@@ -27,28 +20,49 @@ app.get("/", (req, res) => {
   res.status(200).send("YOLO");
 });
 
+// https 的一些基本設定//
+// var serverPort = 8282;
+var server = http.createServer(app);
 server.listen(serverPort, () => {
   console.log("ssh websocket server started");
 });
 
-
-
 const io = require("socket.io")(server); // socket.io server 的基本設定
+
 //mqtt 的基本設定
 var options = {
   host: config.mqtt_host,
   port: 8883,
   protocol: 'mqtts',
   username: config.mqtt_username,
-  password: config.mqtt_password
+  password: config.mqtt_password,
+  keepalive: 3600,
+  reconnectPeriod: 1000,
 }
 
 var client = mqtt.connect(options);
 
 // 建立 mqtt 連線並 subscribe topic "test"
 client.on('connect', function () {
-  console.log('MQTT Connected');
-  client.subscribe('msg/info');
+  console.log('MQTT Connected...');
+  client.subscribe({ 'msg/info': { qos: 1 } }, function (error) {
+    if (!error) {
+      console.log('topic Connected!');
+    } else {
+      console.error('Subscription Error', error);
+    }
+  });
+});
+
+client.on('error', function (error) {
+  console.error('MQTT Connection Error:', error);  //mqtt 連線發生錯誤
+});
+client.on('disconnect', function (error) {
+  console.error('MQTT Disconnected', error);  //MQTT斷線
+});
+
+client.on('close', function (error) {
+  console.error('Connection Closed', error); //MQTT連線關閉
 });
 
 client.on("message", async function (topic, msg) {
