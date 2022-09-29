@@ -15,7 +15,7 @@ const App = () => {
   const [height, setHeight] = useState(window.innerHeight);
   const [date_send, setDate_send] = useState("");
   const [basedata, setBasedata] = useState([]);
-  const [information, setInformation] = useState({ temp: "", hum: "", datetime: "" });
+  const [information, setInformation] = useState({ temp: 0, hum: 0, datetime: "-" });
 
   useEffect(() => {
     console.log(window.location.hostname);
