@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 // import Ws from "./Socket"
+
+import moment from "moment";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from 'react-flatpickr';
 import DrawLine from "./Drawline_";
@@ -52,18 +54,22 @@ export default function Chart(props) {
                     placeholder="Select date"
                     onChange={(date, dateStr) => {
                         let selectedDate = date[0];
-                        let currentDate = new Date();
-                        let selectedDateWithCurrentTime = new Date(
-                            selectedDate.setHours(
-                                currentDate.getHours(),
-                                currentDate.getMinutes(),
-                                currentDate.getSeconds()
-                            )
-                        ),
-                            finalDate =
-                                selectedDateWithCurrentTime.toISOString().split("T")[0];
-                        console.log("s" + finalDate);
-                        setDate_send(finalDate);
+                        // let currentDate = new Date();
+                        // let selectedDateWithCurrentTime = new Date(
+                        //     selectedDate.setHours(
+                        //         currentDate.getHours(),
+                        //         currentDate.getMinutes(),
+                        //         currentDate.getSeconds()
+                        //     )
+                        // ),
+                        //     finalDate =
+                        //         selectedDateWithCurrentTime.toISOString().split("T")[0];
+                        // let selectedDateWithCurrentTime = moment(new Date(
+                        //     selectedDate.setHours)).format('YYYY-MM-DD');
+                        // console.log("s" + selectedDateWithCurrentTime);
+                        // console.log("s" + finalDate);
+                        console.log("s" + moment(selectedDate).format('YYYY-MM-DD'));
+                        setDate_send(moment(selectedDate).format('YYYY-MM-DD'));
                     }}
                 /><button
                     onClick={sendMessage}
