@@ -5,12 +5,13 @@ var mqtt = require("mqtt");
 const config = require("./config.json")
 const app = express();
 const { search, insert } = require("./connect");
-
+const { useEffect } = require("react");
+var uid = 0;
 // const { search } = require("./connect");
 
 // https 的一些基本設定//
-var serverPort = process.env.PORT;
-// var serverPort = 8282;
+// var serverPort = process.env.PORT;
+var serverPort = 8282;
 var server = http.createServer(app);
 
 //set the template engine ejs
@@ -47,8 +48,8 @@ var client = mqtt.connect(options);
 // 建立 mqtt 連線並 subscribe topic "test"
 client.on('connect', function () {
   console.log('MQTT Connected');
+  client.subscribe('msg/info');
 });
-client.subscribe('msg/info');
 
 client.on("message", async function (topic, msg) {
   const msg_in = JSON.parse(msg);
@@ -56,14 +57,15 @@ client.on("message", async function (topic, msg) {
   const msg_out = { temp, hum, datetime };
   // // 以 chat 發送訊息給監聽的 client
   console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
-  let uid = await search(1, '');
-  uid += 1;
-  insert(uid, temp, hum, datetime);
+  // let uid = await search(1, '');
+  // uid = uid + 1;
+  //console.log(uid)
+  // insert(uid, temp, hum, datetime);
 
 });
 
 
-// client 連入時的基本設定
+// // client 連入時的基本設定
 io.on("connection", async function (socket) {
 
   // client 斷線時的動作
@@ -93,12 +95,15 @@ io.on("connection", async function (socket) {
     let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
     // console.log(rows[0]);
     socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
+    uid = uid + 1;
+    console.log(uid)
 
   });
-
-  console.log("來拿歷史資料囉！-first");
-  let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
-  // console.log(rows[0]);
-  socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
+  if (io) {
+    console.log("來拿歷史資料囉！-first");
+    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+    // console.log(rows[0]);
+    socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
+  }
 
 });
