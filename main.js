@@ -57,10 +57,10 @@ client.on("message", async function (topic, msg) {
   const msg_out = { temp, hum, datetime };
   // // 以 chat 發送訊息給監聽的 client
   console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
-  // let uid = await search(1, '');
-  // uid = uid + 1;
-  //console.log(uid)
-  // insert(uid, temp, hum, datetime);
+  let uuid = await search(1, '');
+  uuid = uuid + 1;
+  console.log(uuid)
+  insert(uuid, temp, hum, datetime);
 
 });
 
