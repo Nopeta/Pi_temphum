@@ -44,6 +44,13 @@
   height: calc(var(--vh, 1vh) * 100);
 } 
 
+@media (min-width:768) {
+  .center{
+    display: flex;
+    flex-direction:column;
+  }
+}
+
 body {
     font-family: Comic Sans MS;
     display: flex;
@@ -56,12 +63,13 @@ body {
 
 .TEMP{
     background-color: #ffffff;
-    width: 50%;
+    width: 200 rem;
     color: #091b2b;
     padding: 25px;
     box-shadow: 10px 10px 25px #00000090;
     text-align: center;
     border-radius: 30px;
+    margin: 20px;
 }
 .TEMP_1{
   display: flex;
@@ -71,7 +79,8 @@ body {
 
 .center{
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  /* flex-wrap:wrap; */
   align-items: center;
   justify-content: center;
 }
@@ -90,4 +99,11 @@ body {
   margin-top: 50px;
   text-align: center;
 
+}
+
+.send_check{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction:row;
 }

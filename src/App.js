@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import webSocket from "socket.io-client";
-import DrawLine from "./components/drawline";
+import DrawLine from "./components/Drawline";
 // import Calender from "./components/calendar";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from 'react-flatpickr';
@@ -15,7 +15,7 @@ const App = () => {
   const [height, setHeight] = useState(window.innerHeight);
   const [date_send, setDate_send] = useState("");
   const [basedata, setBasedata] = useState([]);
-  const [information, setInformation] = useState({ temp: "", hum: "", datetime: "" });
+  const [information, setInformation] = useState({ temp: 0, hum: 0, datetime: "-" });
 
   useEffect(() => {
     console.log(window.location.hostname);
@@ -32,7 +32,7 @@ const App = () => {
     if (ws) {
       console.log("success connect!");
       initWebSocket();  //溫濕度即時ＭＱＴＴ
-      initWebSocket_data();//資料庫回傳
+      initWebSocket_data();//歷史資料庫回傳
     }
   }, [ws]);
 
@@ -66,11 +66,11 @@ const App = () => {
     }
   };
 
-  const fp = useRef(null);
+  // const fp = useRef(null);
   const options = {
     enableTime: false,
-    dateFormat: "Y-d-m",
-    defaultDate: "2022-10-01"
+    dateFormat: "Y-m-d",
+    defaultDate: "2022-09-28"
   };
   console.log("sss" + date_send)
   return (
@@ -94,34 +94,38 @@ const App = () => {
           </span>
         </div>
         <div className="drawline">
-          <Flatpickr
-            ref={fp}
-            // options={options}
-            placeholder="Select date"
-            onChange={(date, dateStr) => {
-              let selectedDate = date[0];
-              let currentDate = new Date();
-              let selectedDateWithCurrentTime = new Date(
-                selectedDate.setHours(
-                  currentDate.getHours(),
-                  currentDate.getMinutes(),
-                  currentDate.getSeconds()
-                )
-              ),
-                finalDate =
-                  selectedDateWithCurrentTime.toISOString().split("T")[0];
-              console.log(
-                "selectedDateWithCurrentTime",
-                selectedDateWithCurrentTime
-              );
-              setDate_send(finalDate);
-            }}
-          /><button
-            onClick={sendMessage}
-            type="text"
-          >
-            Send
-          </button>
+          <div className="send_check">
+            <p>查詢日期：</p>
+            <Flatpickr
+              // ref={fp}
+              options={options}
+              placeholder="Select date"
+              onChange={(date, dateStr) => {
+                let selectedDate = date[0];
+                let currentDate = new Date();
+                let selectedDateWithCurrentTime = new Date(
+                  selectedDate.setHours(
+                    currentDate.getHours(),
+                    currentDate.getMinutes(),
+                    currentDate.getSeconds()
+                  )
+                ),
+                  finalDate =
+                    selectedDateWithCurrentTime.toISOString().split("T")[0];
+                console.log(
+                  "selectedDateWithCurrentTime",
+                  selectedDateWithCurrentTime
+                );
+                setDate_send(finalDate);
+              }}
+            /><button
+              onClick={sendMessage}
+              type="text"
+            >
+              Send
+            </button>
+          </div>
+
           <DrawLine data_in={basedata} />
         </div>
 

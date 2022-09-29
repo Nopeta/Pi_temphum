@@ -1,11 +1,11 @@
-import LineChart from "../components/LineChart";
-import { useState } from "react";
+import LineChart from "./LineChart";
+// import { memo } from "react";
 // import { UserData } from "./Data";
 
 
 function DrawLine({ data_in }) {
-    // const {}=data_in;
-    console.log(data_in);
+
+    // console.log(data_in);
     const options = { //表頭
         responsive: true,
         plugins: {

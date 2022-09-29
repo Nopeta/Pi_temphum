@@ -5,6 +5,7 @@
 /src/api_test.js
 /src/components/Data.js
 /src/components/calendar.js
+/src/components/Socket.js
 
 # testing
 /coverage
