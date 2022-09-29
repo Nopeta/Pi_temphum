@@ -48,7 +48,8 @@ function DrawLine({ data_in }) {
     return (
 
         // <div style={{ width: '700 em' }}>
-        <div style={{ width: 1000 }}>
+        // <div style={{ width: 1000 }}>
+        <div>
             <LineChart options={options} chartData={userData} />
         </div>
 

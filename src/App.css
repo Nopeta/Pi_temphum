@@ -103,6 +103,7 @@ body {
   flex-direction:column;
   margin-top: 50px;
   text-align: center;
+  width: 100%;
 }
 
 .send_check{
