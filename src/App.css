@@ -1,6 +1,8 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;*/
+
+
+h2{
+  margin-top: 2px;
+}
 
  .App {
   text-align: center;
@@ -36,18 +38,23 @@
   }
   to {
     transform: rotate(360deg);
-  } 
-/* }  */
+  }  */
+/* } 
 
 .window-h {
   height: 100vh; /*給 Safari 以外的瀏覽器讀取*/
-  height: calc(var(--vh, 1vh) * 100);
-} 
+  /* height: calc(var(--vh, 1vh) * 100);
+}  */
 
-@media (min-width:768) {
-  .center{
+
+@media screen and (max-width:768px) { 
+    .center{
     display: flex;
     flex-direction:column;
+    flex-wrap: wrap;
+  }
+  body{
+    height: 129vh;
   }
 }
 
@@ -63,13 +70,13 @@ body {
 
 .TEMP{
     background-color: #ffffff;
-    width: 200 rem;
     color: #091b2b;
     padding: 25px;
     box-shadow: 10px 10px 25px #00000090;
     text-align: center;
     border-radius: 30px;
     margin: 20px;
+    box-sizing: border-box;
 }
 .TEMP_1{
   display: flex;
@@ -79,8 +86,6 @@ body {
 
 .center{
   display: flex;
-  /* flex-direction: row; */
-  /* flex-wrap:wrap; */
   align-items: center;
   justify-content: center;
 }
@@ -98,7 +103,6 @@ body {
   flex-direction:column;
   margin-top: 50px;
   text-align: center;
-
 }
 
 .send_check{

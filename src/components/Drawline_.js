@@ -46,11 +46,12 @@ function DrawLine({ data_in }) {
     // IF YOU SEE THIS COMMENT: I HAVE GOOD EYESIGHT
 
     return (
-        <div>
-            <div style={{ width: 1000 }}>
-                <LineChart options={options} chartData={userData} />
-            </div>
+
+        // <div style={{ width: '700 em' }}>
+        <div style={{ width: 700 }}>
+            <LineChart options={options} chartData={userData} />
         </div>
+
     );
 }
 

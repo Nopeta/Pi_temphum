@@ -1,11 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // import Ws from "./Socket"
 
 export default function Temp_and_hum(props) {
     const { title, ws, ws_topic } = props;
-    // console.log("here2" + ws_topic);
-    const mqttinformation = useRef({});
-    const sqlhistory = useRef({});
     const [information, setInformation] = useState({ temp: 0, hum: 0, datetime: "-" });
     useEffect(() => {
         if (ws) {
@@ -17,22 +14,9 @@ export default function Temp_and_hum(props) {
     //取得Ｍqtt溫濕度資訊放數變數
     const initWebSocket = async () => {
         ws.on(ws_topic, (data) => {
-            // console.log("here" + ws_topic);
-            // console.log(data);
             setInformation(data);
         });
     };
-
-    // if (ws_topic === "history_last_1") {
-    //     // console.log(information[0]);
-    //     // const check = information;
-    //     const { temp, hum, datetime } = information;
-    //     const date_fin = datetime.substring(0, 19).replace('T', ' ');
-    //     const check_fin = { ...information, datetime: date_fin };
-
-    //     setInformation(check_fin);
-
-    // }
 
     return (
         <div className="TEMP">

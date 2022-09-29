@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import Ws from "./Socket"
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from 'react-flatpickr';
@@ -25,7 +25,6 @@ export default function Chart(props) {
         });
     };
 
-    // const fp = useRef(null);
     // const options = {
     //     enableTime: false,
     //     dateFormat: "Y-m-d",
@@ -33,6 +32,7 @@ export default function Chart(props) {
     // };
 
     const sendMessage = () => {
+
         if (date_send !== "") {
             console.log(date_send)
             ws.emit("date", { date_send });
@@ -42,7 +42,6 @@ export default function Chart(props) {
         }
     };
 
-    // useEffect(() => { setBasedata(Ws(2)); }, []);
     return (
         <div className="drawline">
             <div className="send_check">
@@ -63,10 +62,7 @@ export default function Chart(props) {
                         ),
                             finalDate =
                                 selectedDateWithCurrentTime.toISOString().split("T")[0];
-                        console.log(
-                            "selectedDateWithCurrentTime",
-                            selectedDateWithCurrentTime
-                        );
+                        console.log("s" + finalDate);
                         setDate_send(finalDate);
                     }}
                 /><button
