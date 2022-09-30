@@ -80,7 +80,7 @@ io.on("connection", async function (socket) {
   });
   socket.on("date", async function (msg) {
     console.log("收到了！" + msg.date_send);
-    let rows = await search(2, ` WHERE datetime like '${msg.date_send} %'`);
+    let rows = await search(` WHERE datetime like '${msg.date_send} %'`);
     socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
   });
 
@@ -96,7 +96,7 @@ io.on("connection", async function (socket) {
     socket.emit("information", msg_out);
 
     console.log("來拿歷史資料囉！");
-    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+    let rows = await search(` ORDER BY datetime DESC LIMIT 1`);
     // console.log(rows[0]);
     socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
     check_number = check_number + 1; //檢查進入Socket幾次
@@ -106,7 +106,7 @@ io.on("connection", async function (socket) {
 
   if (io) {
     console.log("來拿歷史資料囉！-first");
-    let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
+    let rows = await search(` ORDER BY datetime DESC LIMIT 1`);
     // console.log(rows[0]);
     socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
   }
