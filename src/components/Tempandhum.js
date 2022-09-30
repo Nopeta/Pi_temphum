@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import Ws from "./Socket"
 
 export default function Temp_and_hum(props) {
     const { title, ws, ws_topic } = props;
@@ -35,7 +34,7 @@ export default function Temp_and_hum(props) {
                 </div>
             </div>
             <span>
-                偵測時間 : {information.datetime.substring(0, 19).replace('T', ' ')}
+                偵測時間 : {information.datetime.substring(0, 19).replace("T", " ")}
             </span>
 
         </div>

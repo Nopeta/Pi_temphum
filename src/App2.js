@@ -1,9 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import webSocket from "socket.io-client";
-// import Ws from "./components/Socket"
 import Chart from "./components/Chart"
-import Temp_and_hum from './components/Tempandhum';
+import Temp_and_hum from "./components/Tempandhum";
 
 const App = () => {
     const [ws, setWs] = useState(null);

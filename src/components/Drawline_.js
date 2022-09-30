@@ -1,29 +1,23 @@
 import LineChart from "./LineChart";
-// import { memo } from "react";
-// import { UserData } from "./Data";
-
 
 function DrawLine({ data_in }) {
-
-    // console.log(data_in);
     const options = { //表頭
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                position: "top",
             },
             title: {
                 display: true,
-                text: '歷史溫濕度查看',
+                text: "歷史溫濕度查看",
             },
         },
     };
-    // const [userData, setUserData] = useState(
     const userData =
     {
         labels: data_in.map((data) => {
             let date_fin = new Date(data.datetime);
-            let finalDate = date_fin.toISOString().slice(0, 19).replace('T', ' ');
+            let finalDate = date_fin.toISOString().slice(0, 19).replace("T", " ");
             return finalDate.substring(11);
         }),  //底下的標籤
         datasets: [
@@ -43,16 +37,11 @@ function DrawLine({ data_in }) {
         ],
     };
 
-    // IF YOU SEE THIS COMMENT: I HAVE GOOD EYESIGHT
-
     return (
-
         // <div style={{ width: '700 em' }}>
         <div style={{ width: 800 }}>
-            {/* <div> */}
             <LineChart options={options} chartData={userData} />
         </div>
-
     );
 }
 

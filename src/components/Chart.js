@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-// import Ws from "./Socket"
-
+import { useState, useEffect } from "react";
 import moment from "moment";
 import "flatpickr/dist/themes/material_green.css";
-import Flatpickr from 'react-flatpickr';
+import Flatpickr from "react-flatpickr";
 import DrawLine from "./Drawline_";
 
 
@@ -11,7 +9,6 @@ export default function Chart(props) {
     const { ws } = props;
     const [basedata, setBasedata] = useState([]);
     const [date_send, setDate_send] = useState("");
-
 
     useEffect(() => {
         if (ws) {
@@ -27,20 +24,14 @@ export default function Chart(props) {
         });
     };
 
-    // const options = {
-    //     enableTime: false,
-    //     dateFormat: "Y-m-d",
-    //     defaultDate: "2022-09-28"
-    // };
-
     const sendMessage = () => {
 
         if (date_send !== "") {
-            console.log(date_send)
+            console.log(date_send);
             ws.emit("date", { date_send });
         }
         if (date_send === "") {
-            alert("尚未選擇日期喔！")
+            alert("尚未選擇日期喔！");
         }
     };
 
@@ -49,27 +40,11 @@ export default function Chart(props) {
             <div className="send_check">
                 <p>歷史紀錄查詢，請選擇日期：</p>
                 <Flatpickr
-                    // ref={fp}
-                    // options={options}
                     placeholder="Select date"
                     onChange={(date, dateStr) => {
                         let selectedDate = date[0];
-                        // let currentDate = new Date();
-                        // let selectedDateWithCurrentTime = new Date(
-                        //     selectedDate.setHours(
-                        //         currentDate.getHours(),
-                        //         currentDate.getMinutes(),
-                        //         currentDate.getSeconds()
-                        //     )
-                        // ),
-                        //     finalDate =
-                        //         selectedDateWithCurrentTime.toISOString().split("T")[0];
-                        // let selectedDateWithCurrentTime = moment(new Date(
-                        //     selectedDate.setHours)).format('YYYY-MM-DD');
-                        // console.log("s" + selectedDateWithCurrentTime);
-                        // console.log("s" + finalDate);
-                        console.log("s" + moment(selectedDate).format('YYYY-MM-DD'));
-                        setDate_send(moment(selectedDate).format('YYYY-MM-DD'));
+                        console.log("s" + moment(selectedDate).format("YYYY-MM-DD"));
+                        setDate_send(moment(selectedDate).format("YYYY-MM-DD"));
                     }}
                 /><button
                     onClick={sendMessage}
