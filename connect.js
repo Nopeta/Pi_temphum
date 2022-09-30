@@ -8,6 +8,7 @@ const opt = {
     database: process.env.mysql_database_name,
     port: process.env.mysql_port
 }
+console.log(opt);
 
 async function search(sql_def) {
     let sql = process.env.mysql_sql_search;
