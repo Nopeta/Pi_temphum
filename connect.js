@@ -1,61 +1,37 @@
 const mysql = require('mysql2/promise')
-const mysql2 = require('mysql2')
 const config = require("./config.json")
 
 const opt = {
     host: config.mysql_host,
     user: config.mysql_username,
     password: config.mysql_password,
-    database: config.mysql_databasename,
+    database: config.mysql_database_name,
     port: config.mysql_port
 }
 
-
-async function search(i, sql_def) {
-    let sql = 'SELECT * FROM information';
+async function search(sql_def) {
+    let sql = config.mysql_sql_search;
 
     // create the connection
-    const connection = await mysql.createConnection(opt);
+    const connection = await mysql2.createConnection(opt);
+
     // query database
-
-    switch (i) {
-        case 1: { //取得數量
-            const [rows, fields] = await connection.execute(sql);
-            connection.end();
-            // console.log(rows.length);
-            return rows.length;
-            // break;
-        }
-        case 2: {
-            const sql2 = sql + sql_def;
-            // console.log(sql2);
-            const [rows, fields] = await connection.execute(sql2);
-            connection.end();
-            // console.log(rows.length);
-            return rows;
-        }
-        default: { break; }
-    }
+    const sql2 = sql + sql_def;
+    const [rows, fields] = await connection.execute(sql2);
+    connection.end();
+    return rows;
 }
 
-function insert(uid, temperature, humidity, datetime) {
-    let sql = `INSERT INTO information(uid,temp, hum, datetime)
-           VALUES(?,?,?,?)`;
-    const in_value = [uid, temperature, humidity, datetime]
+async function insert(temperature, humidity, datetime) {
+    let sql = config.mysql_sql_insert;
+    const in_value = [temperature, humidity, datetime];
 
     // create the connection
-    const con = mysql2.createConnection(opt);
-    con.query(sql, in_value, (err, results, fields) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log('information:' + results.insertId);
-    });
+    const con = await mysql.createConnection(opt);
+    const [rows, fields] = await con.execute(sql, in_value);
+    console.log(rows);
+    console.log(fields);
     con.end();
-
-
 }
-
-// insert(3, 26, 69, "2022-09-27 23:23:23")
 
 module.exports = { search, insert };
