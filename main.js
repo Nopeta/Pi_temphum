@@ -1,16 +1,15 @@
 const express = require("express");
 const http = require("http");
-var cors = require("cors");
-var mqtt = require("mqtt");
-const config = require("./config.json")
+const cors = require("cors");
+const mqtt = require("mqtt");
+// const config = require("./config.json")
 const app = express();
+require('dotenv').config();
 const { search, insert } = require("./connect");
-var serverPort = process.env.PORT || 8282;
+let serverPort = process.env.PORT || 8282;
 var check_number = 0;
 
 app.use(cors());
-//middlewares
-// app.use(express.static("public"));
 
 //routes
 app.get("/", (req, res) => {
@@ -28,14 +27,16 @@ const io = require("socket.io")(server); // socket.io server 的基本設定
 
 //mqtt 的基本設定
 var options = {
-  host: config.mqtt_host,
+  host: process.env.mqtt_host,
   port: 8883,
   protocol: 'mqtts',
-  username: config.mqtt_username,
-  password: config.mqtt_password,
+  username: process.env.mqtt_username,
+  password: process.env.mqtt_password,
   keepalive: 3600,
   reconnectPeriod: 1000,
 }
+
+console.log(options)
 
 var client = mqtt.connect(options);
 

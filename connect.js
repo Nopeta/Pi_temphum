@@ -1,16 +1,16 @@
 const mysql = require('mysql2/promise')
-const config = require("./config.json")
+require('dotenv').config();
 
 const opt = {
-    host: config.mysql_host,
-    user: config.mysql_username,
-    password: config.mysql_password,
-    database: config.mysql_database_name,
-    port: config.mysql_port
+    host: process.env.mysql_host,
+    user: process.env.mysql_username,
+    password: process.env.mysql_password,
+    database: process.env.mysql_database_name,
+    port: process.env.mysql_port
 }
 
 async function search(sql_def) {
-    let sql = config.mysql_sql_search;
+    let sql = process.env.mysql_sql_search;
 
     // create the connection
     const connection = await mysql.createConnection(opt);
@@ -22,7 +22,7 @@ async function search(sql_def) {
 }
 
 async function insert(temperature, humidity, datetime) {
-    let sql = config.mysql_sql_insert;
+    let sql = process.env.mysql_sql_insert;
     const in_value = [temperature, humidity, datetime];
 
     // create the connection
