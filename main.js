@@ -6,13 +6,11 @@ const config = require("./config.json")
 const app = express();
 const { search, insert } = require("./connect");
 var serverPort = process.env.PORT || 8282;
-var uid = 0;
-// const { search } = require("./connect");
+var check_number = 0;
 
 app.use(cors());
 //middlewares
-app.use(express.static("public"));
-// app.use('/', express.static(path.join(__dirname, 'dist')));
+// app.use(express.static("public"));
 
 //routes
 app.get("/", (req, res) => {
@@ -21,7 +19,6 @@ app.get("/", (req, res) => {
 });
 
 // https 的一些基本設定//
-// var serverPort = 8282;
 var server = http.createServer(app);
 server.listen(serverPort, () => {
   console.log("ssh websocket server started");
@@ -69,31 +66,24 @@ client.on("message", async function (topic, msg) {
   const msg_in = JSON.parse(msg);
   const { temp, hum, datetime } = msg_in;
   const msg_out = { temp, hum, datetime };
-  // // 以 chat 發送訊息給監聽的 client
+  // 以 chat 發送訊息給監聽的 client
   console.log('收到 ' + topic + ' 主題，溫濕度為：' + msg_out);
-  let uuid = await search(1, '');
-  uuid = uuid + 1;
-  console.log(uuid)
-  insert(uuid, temp, hum, datetime);
-
+  insert(temp, hum, datetime);
 });
 
 
-// // client 連入時的基本設定
+// client 連入時的基本設定
 io.on("connection", async function (socket) {
-
   // client 斷線時的動作
   socket.on("disconnect", function () {
     console.log('斷線');
   });
-
   socket.on("date", async function (msg) {
     console.log("收到了！" + msg.date_send);
-    // console.log(msg);
     let rows = await search(2, ` WHERE datetime like '${msg.date_send} %'`);
-    // // console.log(rows);
     socket.emit("basedata", rows); //回傳前端資料庫搜尋資料
   });
+
 
 
 
@@ -102,17 +92,18 @@ io.on("connection", async function (socket) {
     const msg_in = JSON.parse(msg);
     const { temp, hum, datetime } = msg_in;
     const msg_out = { temp, hum, datetime };
-    // // 以 chat 發送訊息給監聽的 client
+    // 以 chat 發送訊息給監聽的 client
     socket.emit("information", msg_out);
 
     console.log("來拿歷史資料囉！");
     let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);
     // console.log(rows[0]);
     socket.emit("history_last_1", rows[0]); //回傳前端資料庫搜尋資料
-    uid = uid + 1;
-    console.log(uid)
+    check_number = check_number + 1; //檢查進入Socket幾次
+    console.log(check_number);
 
   });
+
   if (io) {
     console.log("來拿歷史資料囉！-first");
     let rows = await search(2, ` ORDER BY datetime DESC LIMIT 1`);

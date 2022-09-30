@@ -6,8 +6,10 @@
     "mqtt_topic": "msg/info",
     "mysql_host":"sql6.freesqldatabase.com",
     "mysql_port":3306,
-    "mysql_databasename":"sql6522390",
+    "mysql_database_name":"sql6522390",
     "mysql_username":"sql6522390",
-    "mysql_password":"a2IA4KBSuh"
+    "mysql_password":"a2IA4KBSuh",
+    "mysql_sql_search":"SELECT * FROM information",
+    "mysql_sql_insert":"INSERT INTO information(temp, hum, datetime) VALUES(?,?,?,?)"
     
 }
