@@ -7,7 +7,7 @@ export default function Temp_and_hum(props) {
     useEffect(() => {
         if (ws) {
             console.log("success connect!");
-            initWebSocket();  //溫濕度即時ＭＱＴＴ
+            initWebSocket();  //溫濕度即時ＭＱＴＴ與歷史資料抓取
         }
     }, [ws]);
 
