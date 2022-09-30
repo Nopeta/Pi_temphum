@@ -2,7 +2,6 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const mqtt = require("mqtt");
-// const config = require("./config.json")
 const app = express();
 require('dotenv').config();
 const { search, insert } = require("./connect");
