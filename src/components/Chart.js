@@ -25,7 +25,6 @@ export default function Chart(props) {
     };
 
     const sendMessage = () => {
-
         if (date_send !== "") {
             console.log(date_send);
             ws.emit("date", { date_send });
@@ -41,7 +40,7 @@ export default function Chart(props) {
                 <p>歷史紀錄查詢，請選擇日期：</p>
                 <Flatpickr
                     placeholder="Select date"
-                    onChange={(date, dateStr) => {
+                    onChange={(date, dateStr) => {  //dateStr 記錄抓取得值
                         let selectedDate = date[0];
                         console.log("s" + moment(selectedDate).format("YYYY-MM-DD"));
                         setDate_send(moment(selectedDate).format("YYYY-MM-DD"));
@@ -53,7 +52,8 @@ export default function Chart(props) {
                     Send
                 </button>
             </div>
-            <DrawLine data_in={basedata} />
+            <DrawLine data_in={basedata} title="溫度" color="rgba(255, 99, 132, 0.5)" />
+            <DrawLine data_in={basedata} title="濕度" color="rgba(53, 162, 235)" />
         </div>
     )
 }

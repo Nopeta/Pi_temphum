@@ -8,10 +8,8 @@ const App = () => {
     const [ws, setWs] = useState(null);
 
     useEffect(() => {
-        // console.log(window.location.hostname);
         setWs(
-            webSocket(`https://safe-cove-57354.herokuapp.com/`, {
-                // webSocket(`http://localhost:8282/`, {
+            webSocket("https://safe-cove-57354.herokuapp.com/", {
                 transports: ["websocket"],
             })
         );
