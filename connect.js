@@ -13,8 +13,7 @@ async function search(sql_def) {
     let sql = config.mysql_sql_search;
 
     // create the connection
-    const connection = await mysql2.createConnection(opt);
-
+    const connection = await mysql.createConnection(opt);
     // query database
     const sql2 = sql + sql_def;
     const [rows, fields] = await connection.execute(sql2);
