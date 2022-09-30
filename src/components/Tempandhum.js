@@ -14,6 +14,7 @@ export default function Temp_and_hum(props) {
     //取得Ｍqtt溫濕度資訊放數變數
     const initWebSocket = async () => {
         ws.on(ws_topic, (data) => {
+            console.log("我要來拿資料囉！")
             setInformation(data);
         });
     };

@@ -22,7 +22,7 @@ export default function Chart(props) {
     //取得資料庫資料放入變數
     const initWebSocket_data = () => {
         ws.on("basedata", (data) => {
-            // console.log(data);
+            console.log("來取歷史數據囉！");
             setBasedata(data);
         });
     };
